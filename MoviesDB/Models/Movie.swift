@@ -28,4 +28,13 @@ struct Movie: Decodable {
         date = try container.decode(String.self, forKey: .date)
         posterURL = try container.decodeIfPresent(String.self, forKey: .posterURL)
     }
+
+    static func fetch(using session: URLSession = .shared, page: Int, onSuccess: @escaping (MoviesResponse) -> Void, onError: ((RequestError) -> Void)? = nil) {
+        let apiManager = ApiManager<MoviesResponse>(session: session, urlString: "https://api.themoviedb.org/3/discover/movie")
+        apiManager.getRequest(page: page, onSuccess: { (response) in
+            onSuccess(response)
+        }) { (error) in
+            onError?(error)
+        }
+    }
 }

@@ -16,6 +16,7 @@
 		0D79977322204D1400969D17 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D79977222204D1400969D17 /* Movie.swift */; };
 		0D7997752220556500969D17 /* MoviesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7997742220556500969D17 /* MoviesResponse.swift */; };
 		0D79977722208BF700969D17 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D79977622208BF700969D17 /* ApiManager.swift */; };
+		0D7997792220A76F00969D17 /* MoviesTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7997782220A76F00969D17 /* MoviesTableViewDataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		0D79977222204D1400969D17 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		0D7997742220556500969D17 /* MoviesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesResponse.swift; sourceTree = "<group>"; };
 		0D79977622208BF700969D17 /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
+		0D7997782220A76F00969D17 /* MoviesTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesTableViewDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +110,7 @@
 				0D79974A22204AB200969D17 /* Assets.xcassets */,
 				0D79974C22204AB200969D17 /* LaunchScreen.storyboard */,
 				0D79974F22204AB200969D17 /* Info.plist */,
+				0D7997782220A76F00969D17 /* MoviesTableViewDataSource.swift */,
 			);
 			path = MoviesDB;
 			sourceTree = "<group>";
@@ -274,6 +277,7 @@
 				0D79977722208BF700969D17 /* ApiManager.swift in Sources */,
 				0D79974422204AB200969D17 /* AppDelegate.swift in Sources */,
 				0D79977322204D1400969D17 /* Movie.swift in Sources */,
+				0D7997792220A76F00969D17 /* MoviesTableViewDataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

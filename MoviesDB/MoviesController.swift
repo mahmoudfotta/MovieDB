@@ -13,7 +13,7 @@ class MoviesController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "All Movies"
+        title = "Movies DB"
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         tableView.dataSource = dataSource

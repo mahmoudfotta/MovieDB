@@ -33,7 +33,7 @@ class MoviesControllerTests: XCTestCase {
         moviesController.loadViewIfNeeded()
 
         //then
-        XCTAssertEqual(moviesController.title, "All Movies")
+        XCTAssertEqual(moviesController.title, "Movies DB")
     }
 
     func testTableViewExists() {

@@ -21,6 +21,13 @@ struct Movie: Decodable {
     var date: String
     var posterURL: String?
 
+    init(title: String, overview: String, date: String, posterURL: String?) {
+        self.title = title
+        self.overview = overview
+        self.date = date
+        self.posterURL = posterURL
+    }
+    
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         title = try container.decode(String.self, forKey: .title)

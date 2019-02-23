@@ -10,10 +10,9 @@ import Foundation
 
 enum RequestError: Error, Equatable {
     case requestFailed(String)
-    case decodeFailed
 }
 
-class ApiManager<T: Decodable> {
+class ApiManager{
     var urlString: String
     var session: URLSession
 
@@ -22,7 +21,7 @@ class ApiManager<T: Decodable> {
         self.session = session
     }
 
-    func getRequest(page: Int, onSuccess: @escaping (T) -> Void, onError: ((RequestError) -> Void)? = nil) {
+    func getRequest(page: Int, onSuccess: @escaping (Data) -> Void, onError: ((RequestError) -> Void)? = nil) {
         guard var components = URLComponents(string: urlString) else {
             fatalError("Wrong url.")
         }
@@ -34,25 +33,11 @@ class ApiManager<T: Decodable> {
         guard let url = components.url else { return }
 
         session.dataTask(with: url) { (data, response, error) in
-            do {
-                guard let data = data, let response = response as? HTTPURLResponse, (200 ..< 300) ~= response.statusCode, error == nil else {
-                    onError?(RequestError.requestFailed(error?.localizedDescription ?? ""))
-                    return
-                }
-                onSuccess(try self.decode(data))
-            } catch {
-                onError?(RequestError.decodeFailed)
+            guard let data = data, let response = response as? HTTPURLResponse, (200 ..< 300) ~= response.statusCode, error == nil else{
+                onError?(RequestError.requestFailed(error?.localizedDescription ?? ""))
+                return
             }
+            onSuccess(data)
         }.resume()
-    }
-
-    func decode(_ data: Data) throws -> T {
-        do {
-            let decoder = JSONDecoder()
-            let decodedData = try decoder.decode(T.self, from: data)
-            return decodedData
-        } catch {
-            throw(RequestError.decodeFailed)
-        }
     }
 }

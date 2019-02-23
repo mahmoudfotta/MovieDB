@@ -80,13 +80,28 @@ class MoviesControllerTests: XCTestCase {
 
         //when
         dataSource.handleResponse(response: moviesResponse!)
-        dataSource.dataChanged = {
+        dataSource.dataChanged = { (success) in
             expectation.fulfill()
         }
 
         //then
-        wait(for: [expectation], timeout: 1)
+        wait(for: [expectation], timeout: 2)
 
+    }
+
+    func testIsLastCellInTableviewWithLastIndexPathReturnsTrue() {
+        //given
+        let datasource = MoviesTableViewDataSource(isTesting: true)
+        datasource.movies = movies
+        let moviesController = MoviesController()
+        moviesController.dataSource = datasource
+
+        //when
+        moviesController.loadViewIfNeeded()
+        let result = datasource.isLastCell(in: moviesController.tableView, indexPath: IndexPath(row: datasource.movies.count - 1, section: 0))
+
+        //then
+        XCTAssertTrue(result)
     }
 
     func testShouldRequestMoreMoviesWhenPageGreaterThanOrEqualTotalPagesReturnsFalse() {

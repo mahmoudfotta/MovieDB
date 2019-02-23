@@ -14,15 +14,39 @@ class MoviesController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Movies DB"
-        
+        setupTableView()
+        handleDataDownloaded()
+    }
+
+    func setupTableView() {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         tableView.dataSource = dataSource
-        dataSource.dataChanged = { [weak self] in
+    }
+
+    func handleDataDownloaded() {
+        dataSource.dataChanged = { [weak self] success in
             guard let self = self else { return }
             DispatchQueue.main.async {
-                self.tableView.reloadData()
+                if success {
+                    self.tableView.tableFooterView = nil
+                    self.tableView.reloadData()
+                } else {
+                    self.tableView.tableFooterView = nil
+                }
             }
         }
     }
 }
 
+extension MoviesController {
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        addLoadingIndicator(to: tableView, indexPath: indexPath)
+    }
+
+    fileprivate func addLoadingIndicator(to tableView: UITableView, indexPath: IndexPath) {
+        if dataSource.isLastCell(in: tableView, indexPath: indexPath) {
+            tableView.tableFooterView = IndicatorView()
+            tableView.tableFooterView?.isHidden = false
+        }
+    }
+}

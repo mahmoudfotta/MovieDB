@@ -12,7 +12,7 @@ class MoviesTableViewDataSource: NSObject, UITableViewDataSource {
     var page = 1
     var totalPages = 0
     var movies = [Movie]()
-    var dataChanged: (() -> Void)?
+    var dataChanged: ((_ isSuccess: Bool) -> Void)?
     let cellId = "Cell"
 
     init(isTesting: Bool = false) {
@@ -25,14 +25,16 @@ class MoviesTableViewDataSource: NSObject, UITableViewDataSource {
     func requestMovies(at page: Int) {
         Movie.fetch(page: page, onSuccess: { (response) in
             self.handleResponse(response: response)
-        })
+        }) { (error) in
+            self.dataChanged?(false)
+        }
     }
 
     func handleResponse(response: MoviesResponse) {
         movies.append(contentsOf: response.movies)
         totalPages = response.totalPages
         page += 1
-        dataChanged?()
+        dataChanged?(true)
     }
 
     func shouldRequestMoreMovies(at page: Int, totalPages: Int) -> Bool {
@@ -41,12 +43,22 @@ class MoviesTableViewDataSource: NSObject, UITableViewDataSource {
         }
         return false
     }
-
-    func requestMoreMovies(at page: Int, totalPages: Int, rowNumber: Int, currentMoviesCount: Int) {
+    
+    func requestMoreMovies(at page: Int, totalPages: Int, tableView: UITableView, indexPath: IndexPath) {
         if shouldRequestMoreMovies(at: page, totalPages: totalPages) {
-            if rowNumber == currentMoviesCount {
+            if isLastCell(in: tableView, indexPath: indexPath) {
                 requestMovies(at: page)
             }
+        }
+    }
+    
+    func isLastCell(in tableView: UITableView, indexPath: IndexPath) -> Bool {
+        let lastSectionIndex = tableView.numberOfSections - 1
+        let lastRowIndex = tableView.numberOfRows(inSection: lastSectionIndex) - 1
+        if indexPath.section ==  lastSectionIndex && indexPath.row == lastRowIndex {
+            return true
+        } else {
+            return false
         }
     }
 
@@ -63,7 +75,7 @@ class MoviesTableViewDataSource: NSObject, UITableViewDataSource {
         let movie = movies[indexPath.row]
         cell.textLabel?.text = movie.title
 
-        requestMoreMovies(at: page, totalPages: totalPages, rowNumber: indexPath.row, currentMoviesCount: movies.count-1)
+        requestMoreMovies(at: page, totalPages: totalPages, tableView: tableView, indexPath: indexPath)
 
         return cell
     }

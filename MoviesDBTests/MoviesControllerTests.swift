@@ -11,11 +11,14 @@ import XCTest
 
 class MoviesControllerTests: XCTestCase {
     var movies = [Movie]()
+    var moviesResponse: MoviesResponse?
 
     override func setUp() {
         for i in 0...4 {
             movies.append(Movie(title: "title\(i)", overview: "overview\(i)", date: "10-\(i)-2019", posterURL: "poster url \(i)"))
         }
+
+        moviesResponse = MoviesResponse(page: 1, totalPages: 100, movies: movies)
     }
 
     override func tearDown() {
@@ -42,6 +45,74 @@ class MoviesControllerTests: XCTestCase {
 
         //then
         XCTAssertNotNil(moviesController.tableView)
+    }
+
+    func testHandleResponseIncreasesMoviesCountByResponsMoviesCount() {
+        //given
+        let dataSource = MoviesTableViewDataSource()
+        dataSource.movies = movies
+
+        //when
+        dataSource.handleResponse(response: moviesResponse!)
+        let moviesCount = dataSource.movies.count
+
+        //then
+        XCTAssertEqual(moviesCount, movies.count + (moviesResponse?.movies.count ?? 0))
+    }
+
+    func testHandleResponseIncrementsPageCountByOne() {
+        //given
+        let dataSource = MoviesTableViewDataSource()
+        let beforePage = dataSource.page
+
+        //when
+        dataSource.handleResponse(response: moviesResponse!)
+        let afterPage = dataSource.page
+
+        //then
+        XCTAssertEqual(afterPage, beforePage + 1)
+    }
+
+    func testHandleResponseCallsDataChangedClosure() {
+        //given
+        let dataSource = MoviesTableViewDataSource()
+        let expectation = XCTestExpectation(description: "Data changed gets called.")
+
+        //when
+        dataSource.handleResponse(response: moviesResponse!)
+        dataSource.dataChanged = {
+            expectation.fulfill()
+        }
+
+        //then
+        wait(for: [expectation], timeout: 1)
+
+    }
+
+    func testShouldRequestMoreMoviesWhenPageGreaterThanOrEqualTotalPagesReturnsFalse() {
+        //given
+        let datasource = MoviesTableViewDataSource(isTesting: true)
+        let page = 100
+        let totalPages = 100
+
+        //when
+        let result = datasource.shouldRequestMoreMovies(at: page, totalPages: totalPages)
+
+        //then
+        XCTAssertFalse(result)
+    }
+
+    func testShouldRequestMoreMoviesWhenPageLessThanTotalPagesReturnsTrue() {
+        //given
+        let datasource = MoviesTableViewDataSource(isTesting: true)
+        let page = 99
+        let totalPages = 100
+
+        //when
+        let result = datasource.shouldRequestMoreMovies(at: page, totalPages: totalPages)
+
+        //then
+        XCTAssertTrue(result)
     }
 
     func testTableViewRowCountEqualMoviesCount() {

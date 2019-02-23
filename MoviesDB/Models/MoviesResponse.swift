@@ -15,14 +15,20 @@ struct MoviesResponse: Decodable {
         case movies = "results"
     }
 
+    var page: Int
+    var totalPages: Int
+    var movies: [Movie]
+
+    init(page: Int, totalPages: Int, movies: [Movie]) {
+        self.page = page
+        self.totalPages = totalPages
+        self.movies = movies
+    }
+
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         page = try container.decode(Int.self, forKey: .page)
         totalPages = try container.decode(Int.self, forKey: .totalPages)
         movies = try container.decode([Movie].self, forKey: .movies)
     }
-
-    var page: Int
-    var totalPages: Int
-    var movies: [Movie]
 }

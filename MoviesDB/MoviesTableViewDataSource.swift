@@ -67,4 +67,8 @@ class MoviesTableViewDataSource: NSObject, UITableViewDataSource {
 
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "All Movies"
+    }
 }

@@ -16,6 +16,9 @@ class MoviesController: UITableViewController {
         title = "Movies DB"
         setupTableView()
         handleDataDownloaded()
+        
+        let addBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(handleAdd))
+        navigationItem.rightBarButtonItem = addBarButton
     }
 
     func setupTableView() {
@@ -35,6 +38,11 @@ class MoviesController: UITableViewController {
                 }
             }
         }
+    }
+    
+    @objc func handleAdd() {
+        let addController = AddMovieController()
+        navigationController?.pushViewController(addController, animated: true)
     }
 }
 

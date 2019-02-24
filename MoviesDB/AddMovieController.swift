@@ -6,4 +6,18 @@
 //  Copyright © 2019 Mahmoud Abolfotoh. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class AddMovieController: UIViewController {
+    let addView = AddMovieView()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        title = "Add Movie"
+    }
+
+    override func loadView() {
+        view = addView
+    }
+}
+

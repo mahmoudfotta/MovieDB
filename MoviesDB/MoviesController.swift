@@ -16,8 +16,8 @@ class MoviesController: UITableViewController {
         title = "Movies DB"
         setupTableView()
         handleDataDownloaded()
-        
-        let addBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(handleAdd))
+
+        let addBarButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
         navigationItem.rightBarButtonItem = addBarButton
     }
 
@@ -39,8 +39,8 @@ class MoviesController: UITableViewController {
             }
         }
     }
-    
-    @objc func handleAdd() {
+
+    @objc func addTapped() {
         let addController = AddMovieController()
         navigationController?.pushViewController(addController, animated: true)
     }
@@ -48,13 +48,6 @@ class MoviesController: UITableViewController {
 
 extension MoviesController {
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        addLoadingIndicator(to: tableView, indexPath: indexPath)
-    }
-
-    fileprivate func addLoadingIndicator(to tableView: UITableView, indexPath: IndexPath) {
-        if dataSource.isLastCell(in: tableView, indexPath: indexPath) {
-            tableView.tableFooterView = IndicatorView()
-            tableView.tableFooterView?.isHidden = false
-        }
+        tableView.addLoadingIndicator(at: indexPath)
     }
 }

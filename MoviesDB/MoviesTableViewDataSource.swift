@@ -44,20 +44,10 @@ class MoviesTableViewDataSource: NSObject, UITableViewDataSource {
         }
         return false
     }
-    
+
     func requestMoreMovies(at page: Int, totalPages: Int, tableView: UITableView, indexPath: IndexPath) {
-        if shouldRequestMoreMovies(at: page, totalPages: totalPages) && isLastCell(in: tableView, indexPath: indexPath) {
+        if shouldRequestMoreMovies(at: page, totalPages: totalPages) && tableView.isLastCell(at: indexPath) {
             requestMovies(at: page)
-        }
-    }
-    
-    func isLastCell(in tableView: UITableView, indexPath: IndexPath) -> Bool {
-        let lastSectionIndex = tableView.numberOfSections - 1
-        let lastRowIndex = tableView.numberOfRows(inSection: lastSectionIndex) - 1
-        if indexPath.section ==  lastSectionIndex && indexPath.row == lastRowIndex {
-            return true
-        } else {
-            return false
         }
     }
 
@@ -78,7 +68,7 @@ class MoviesTableViewDataSource: NSObject, UITableViewDataSource {
 
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "All Movies"
     }

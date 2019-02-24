@@ -98,7 +98,7 @@ class MoviesControllerTests: XCTestCase {
 
         //when
         moviesController.loadViewIfNeeded()
-        let result = datasource.isLastCell(in: moviesController.tableView, indexPath: IndexPath(row: datasource.movies.count - 1, section: 0))
+        let result = moviesController.tableView.isLastCell(at: IndexPath(row: datasource.movies.count - 1, section: 0))
 
         //then
         XCTAssertTrue(result)

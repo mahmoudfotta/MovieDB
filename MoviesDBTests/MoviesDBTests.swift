@@ -27,7 +27,8 @@ class MoviesDBTests: XCTestCase {
         let session = setupTestSessionAndProtocolMock(urlString: urlString, statusCode: 200)
 
         //when
-        Movie.fetch(using: session, page: page, onSuccess: { (response) in
+        let moviesResponse = MoviesResponse()
+        moviesResponse.fetch(using: session, page: page, onSuccess: { (response) in
             XCTAssertEqual(response.page, page)
             XCTAssertEqual(response.movies[0].title, "Alita: Battle Angel")
             expectation.fulfill()
@@ -45,7 +46,8 @@ class MoviesDBTests: XCTestCase {
         let session = setupTestSessionAndProtocolMock(urlString: urlString, statusCode: 400)
 
         //when
-        Movie.fetch(using: session, page: page, onSuccess: { (response) in
+        let moviesResponse = MoviesResponse()
+        moviesResponse.fetch(using: session, page: page, onSuccess: { (response) in
         }) { (error) in
             XCTAssertNotNil(error)
             expectation.fulfill()

@@ -23,7 +23,8 @@ class MoviesTableViewDataSource: NSObject, UITableViewDataSource {
     }
 
     func requestMovies(at page: Int) {
-        Movie.fetch(page: page, onSuccess: { (response) in
+        let moviesResponse = MoviesResponse()
+        moviesResponse.fetch(page: page, onSuccess: { (response) in
             self.handleResponse(response: response)
         }) { (error) in
             self.dataChanged?(false)
@@ -45,10 +46,8 @@ class MoviesTableViewDataSource: NSObject, UITableViewDataSource {
     }
     
     func requestMoreMovies(at page: Int, totalPages: Int, tableView: UITableView, indexPath: IndexPath) {
-        if shouldRequestMoreMovies(at: page, totalPages: totalPages) {
-            if isLastCell(in: tableView, indexPath: indexPath) {
-                requestMovies(at: page)
-            }
+        if shouldRequestMoreMovies(at: page, totalPages: totalPages) && isLastCell(in: tableView, indexPath: indexPath) {
+            requestMovies(at: page)
         }
     }
     

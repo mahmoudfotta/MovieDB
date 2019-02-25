@@ -10,14 +10,27 @@ import UIKit
 
 class AddMovieController: UIViewController {
     let addView = AddMovieView()
+    weak var delegate: AddMovieDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Add Movie"
+        
+        let saveBarButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveTapped))
+        navigationItem.rightBarButtonItem = saveBarButton
     }
 
     override func loadView() {
         view = addView
+    }
+    
+    @objc func saveTapped() {
+        guard let title = addView.titleTextField.text, !title.isEmpty else { return }
+        guard let date = addView.dateTextField.text, !date.isEmpty else { return }
+        guard let overview = addView.overviewTextView.text, !overview.isEmpty else { return }
+        let movie = Movie(title: title, overview: overview, date: date, posterURL: nil)
+        delegate?.add(movie)
+        navigationController?.popViewController(animated: true)
     }
 }
 

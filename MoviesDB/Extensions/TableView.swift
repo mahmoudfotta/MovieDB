@@ -9,7 +9,7 @@
 import UIKit
 
 extension UITableView {
-    func isLastCell(at indexPath: IndexPath) -> Bool {
+    func isLast(_ indexPath: IndexPath) -> Bool {
         let lastSectionIndex = numberOfSections - 1
         let lastRowIndex = numberOfRows(inSection: lastSectionIndex) - 1
         if indexPath.section ==  lastSectionIndex && indexPath.row == lastRowIndex {
@@ -19,7 +19,7 @@ extension UITableView {
     }
 
     func addLoadingIndicator(at indexPath: IndexPath) {
-        if isLastCell(at: indexPath) {
+        if isLast(indexPath) {
             tableFooterView = IndicatorView()
             tableFooterView?.isHidden = false
         }

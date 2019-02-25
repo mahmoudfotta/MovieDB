@@ -106,7 +106,7 @@ class AddMovieView: UIView {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.borderStyle = .roundedRect
         textField.font = UIFont.systemFont(ofSize: 16)
-        textField.placeholder = "5-9-1993"
+        textField.placeholder = "5/9/1993"
         return textField
     }()
     
@@ -126,6 +126,11 @@ class AddMovieView: UIView {
         addTitleStackView()
         addDateStackView()
         addOverviewStackView()
+        
+        addDatePicker(to: dateTextField)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        topView.addGestureRecognizer(tapGesture)
     }
     
     func addScrollView() {
@@ -180,5 +185,22 @@ class AddMovieView: UIView {
         overviewTextView.layer.borderWidth = 1
         overviewTextView.layer.borderColor = UIColor(white: 0.9, alpha: 1).cgColor
         overviewTextView.layer.cornerRadius = 4
+    }
+    
+    func addDatePicker(to textField: UITextField) {
+        let datePicker = UIDatePicker()
+        datePicker.datePickerMode = .date
+        datePicker.addTarget(self, action: #selector(handleDateChanged), for: .valueChanged)
+        textField.inputView = datePicker
+    }
+    
+    @objc func handleDateChanged(datePicker: UIDatePicker) {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM/yyyy"
+        dateTextField.text = formatter.string(from: datePicker.date)
+    }
+    
+    @objc func dismissKeyboard() {
+        topView.endEditing(true)
     }
 }

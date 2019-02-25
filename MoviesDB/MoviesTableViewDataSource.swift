@@ -14,6 +14,7 @@ class MoviesTableViewDataSource: NSObject, UITableViewDataSource {
     var movies = [Movie]()
     var dataChanged: ((_ isSuccess: Bool) -> Void)?
     let cellId = "Cell"
+    var myMovies = [Movie]()
 
     init(isTesting: Bool = false) {
         super.init()
@@ -46,20 +47,33 @@ class MoviesTableViewDataSource: NSObject, UITableViewDataSource {
     }
 
     func requestMoreMovies(at page: Int, totalPages: Int, tableView: UITableView, indexPath: IndexPath) {
-        if shouldRequestMoreMovies(at: page, totalPages: totalPages) && tableView.isLastCell(at: indexPath) {
+        if shouldRequestMoreMovies(at: page, totalPages: totalPages) && tableView.isLast(indexPath) {
             requestMovies(at: page)
         }
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
+        if !myMovies.isEmpty {
+            return 2
+        }
         return 1
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if !myMovies.isEmpty && section == 0 {
+            return myMovies.count
+        }
         return movies.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if !myMovies.isEmpty && indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
+            let movie = myMovies[indexPath.row]
+            cell.textLabel?.text = movie.title
+            return cell
+        }
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
         let movie = movies[indexPath.row]
         cell.textLabel?.text = movie.title
@@ -70,6 +84,9 @@ class MoviesTableViewDataSource: NSObject, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if !myMovies.isEmpty && section == 0 {
+            return "My Movies"
+        }
         return "All Movies"
     }
 }

@@ -42,6 +42,7 @@ class MoviesController: UITableViewController {
 
     @objc func addTapped() {
         let addController = AddMovieController()
+        addController.delegate = self
         navigationController?.pushViewController(addController, animated: true)
     }
 }
@@ -49,5 +50,12 @@ class MoviesController: UITableViewController {
 extension MoviesController {
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         tableView.addLoadingIndicator(at: indexPath)
+    }
+}
+
+extension MoviesController: AddMovieDelegate {
+    func add(_ movie: Movie) {
+        dataSource.myMovies.append(movie)
+        tableView.reloadData()
     }
 }

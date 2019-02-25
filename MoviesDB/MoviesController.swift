@@ -22,7 +22,7 @@ class MoviesController: UITableViewController {
     }
 
     func setupTableView() {
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(MovieTableViewCell.self, forCellReuseIdentifier: "Cell")
         tableView.dataSource = dataSource
     }
 

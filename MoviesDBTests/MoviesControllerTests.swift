@@ -158,8 +158,44 @@ class MoviesControllerTests: XCTestCase {
         //then
         for (index, movie) in movies.enumerated() {
             let indexPath = IndexPath(row: index, section: 0)
-            let cell = datasource.tableView(moviesController.tableView, cellForRowAt: indexPath)
-            XCTAssertEqual(cell.textLabel?.text, movie.title)
+            guard let cell = datasource.tableView(moviesController.tableView, cellForRowAt: indexPath) as? MovieTableViewCell else { return }
+            XCTAssertEqual(cell.titleLabel.text, movie.title)
+        }
+    }
+    
+    func testTableViewCellOverviewLabelHasCorrectText() {
+        //given
+        let datasource = MoviesTableViewDataSource(isTesting: true)
+        datasource.movies = movies
+        let moviesController = MoviesController()
+        moviesController.dataSource = datasource
+        
+        //when
+        moviesController.loadViewIfNeeded()
+        
+        //then
+        for (index, movie) in movies.enumerated() {
+            let indexPath = IndexPath(row: index, section: 0)
+            guard let cell = datasource.tableView(moviesController.tableView, cellForRowAt: indexPath) as? MovieTableViewCell else { return }
+            XCTAssertEqual(cell.overviewLabel.text, movie.overview)
+        }
+    }
+    
+    func testTableViewCellDateLabelHasCorrectText() {
+        //given
+        let datasource = MoviesTableViewDataSource(isTesting: true)
+        datasource.movies = movies
+        let moviesController = MoviesController()
+        moviesController.dataSource = datasource
+        
+        //when
+        moviesController.loadViewIfNeeded()
+        
+        //then
+        for (index, movie) in movies.enumerated() {
+            let indexPath = IndexPath(row: index, section: 0)
+            guard let cell = datasource.tableView(moviesController.tableView, cellForRowAt: indexPath) as? MovieTableViewCell else { return }
+            XCTAssertEqual(cell.dateLabel.text, movie.date)
         }
     }
 }

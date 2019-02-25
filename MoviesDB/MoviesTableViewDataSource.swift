@@ -67,19 +67,22 @@ class MoviesTableViewDataSource: NSObject, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = cellForRow(tableView, at: indexPath)
+        return cell
+    }
+    
+    func cellForRow(_ tableView: UITableView, at indexPath: IndexPath) -> MovieTableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? MovieTableViewCell else{
+            fatalError("Couldn't deque cell.")
+        }
         if !myMovies.isEmpty && indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
             let movie = myMovies[indexPath.row]
-            cell.textLabel?.text = movie.title
+            cell.updateCell(with: movie)
             return cell
         }
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
         let movie = movies[indexPath.row]
-        cell.textLabel?.text = movie.title
-
+        cell.updateCell(with: movie)
         requestMoreMovies(at: page, totalPages: totalPages, tableView: tableView, indexPath: indexPath)
-
         return cell
     }
 

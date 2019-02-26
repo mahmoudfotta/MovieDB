@@ -196,4 +196,20 @@ class MoviesControllerTests: XCTestCase {
             XCTAssertEqual(cell.dateLabel.text, movie.date)
         }
     }
+    
+    func testDataSourceWhenMyMoviesAndMoviesNotEmptyThrereisTwoSections() {
+        //given
+        let datasource = MoviesTableViewDataSource(isTesting: true)
+        datasource.movies = movies
+        datasource.myMovies = movies
+        let moviesController = MoviesController()
+        moviesController.dataSource = datasource
+        
+        //when
+        moviesController.loadViewIfNeeded()
+        let sections = datasource.numberOfSections(in: moviesController.tableView)
+        
+        //then
+        XCTAssertEqual(sections, 2)
+    }
 }

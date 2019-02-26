@@ -10,7 +10,6 @@ import XCTest
 @testable import MoviesDB
 
 class MoviesDBTests: XCTestCase {
-
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -21,10 +20,11 @@ class MoviesDBTests: XCTestCase {
 
     func testFetchMoviesAreFetched() {
         //given
+        let testData = Data("{\"page\":1,\"total_results\":403387,\"total_pages\":20170,\"results\":[{\"title\":\"Alita: Battle Angel\",\"poster_path\":\"\\/xRWht48C2V8XNfzvPehyClOvDni.jpg\",\"original_language\":\"en\",\"genre_ids\":[28,878,53],\"overview\":\"When Alita awakens with no memory of who she is in a future world\",\"release_date\":\"2019-01-31\"}]}".utf8)
         let page = 1
-        let urlString = "https://api.themoviedb.org/3/discover/movie"
+        let urlString = EndPoint.movies.description
         let expectation = XCTestExpectation(description: "Downloading news stories triggers resume().")
-        let session = setupTestSessionAndProtocolMock(urlString: urlString, statusCode: 200)
+        let session = setupTestSessionAndProtocolMock(testData: testData, urlString: urlString, statusCode: 200)
 
         //when
         let moviesResponse = MoviesResponse()
@@ -41,9 +41,9 @@ class MoviesDBTests: XCTestCase {
     func testFetchMoviesReturnsErrorWhenResponseStatusNotEqual200() {
         //given
         let page = 1
-        let urlString = "https://api.themoviedb.org/3/discover/movie"
+        let urlString = EndPoint.movies.description
         let expectation = XCTestExpectation(description: "Downloading news stories triggers resume().")
-        let session = setupTestSessionAndProtocolMock(urlString: urlString, statusCode: 400)
+        let session = setupTestSessionAndProtocolMock(testData: Data(), urlString: urlString, statusCode: 400)
 
         //when
         let moviesResponse = MoviesResponse()
@@ -56,9 +56,47 @@ class MoviesDBTests: XCTestCase {
         //then
         wait(for: [expectation], timeout: 5)
     }
+    
+    func testCacheImageEqualsNotAvailableImage() {
+        //given
+        let imageView = UIImageView()
+        let imageCache = NSCache<AnyObject, AnyObject>()
+        let expectation = XCTestExpectation(description: "Downloading Image and cache it.")
+        let urlString = EndPoint.image(path: "wrongpath").description
+        let session = setupTestSessionAndProtocolMock(testData: Data(), urlString: urlString, statusCode: 404)
 
-    func setupTestSessionAndProtocolMock(urlString: String, statusCode: Int) -> URLSession {
-        let testData = Data("{\"page\":1,\"total_results\":403387,\"total_pages\":20170,\"results\":[{\"vote_count\":606,\"id\":399579,\"video\":false,\"vote_average\":6.7,\"title\":\"Alita: Battle Angel\",\"popularity\":367.781,\"poster_path\":\"\\/xRWht48C2V8XNfzvPehyClOvDni.jpg\",\"original_language\":\"en\",\"original_title\":\"Alita: Battle Angel\",\"genre_ids\":[28,878,53],\"backdrop_path\":\"\\/aQXTw3wIWuFMy0beXRiZ1xVKtcf.jpg\",\"adult\":false,\"overview\":\"When Alita awakens with no memory of who she is in a future world she does not recognize, she is taken in by Ido, a compassionate doctor who realizes that somewhere in this abandoned cyborg shell is the heart and soul of a young woman with an extraordinary past.\",\"release_date\":\"2019-01-31\"}]}".utf8)
+        //when
+        imageView.cacheImage(with: urlString, and: session, into: imageCache) {
+            let image = imageCache.object(forKey: urlString as AnyObject)
+            XCTAssertEqual(imageView.image, image as? UIImage)
+            expectation.fulfill()
+        }
+
+        //then
+        wait(for: [expectation], timeout: 5)
+    }
+
+    func testCacheImageEqualsImageViewImage() {
+        //given
+        let testData = #imageLiteral(resourceName: "testImage").pngData()
+        let imageView = UIImageView()
+        let imageCache = NSCache<AnyObject, AnyObject>()
+        let expectation = XCTestExpectation(description: "Downloading Image and cache it.")
+        let urlString = EndPoint.image(path: "nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg").description
+        let session = setupTestSessionAndProtocolMock(testData: testData!, urlString: urlString, statusCode: 200)
+
+        //when
+        imageView.cacheImage(with: urlString, and: session, into: imageCache) {
+            let image = imageCache.object(forKey: urlString as AnyObject)
+            XCTAssertEqual(imageView.image, image as? UIImage)
+            expectation.fulfill()
+        }
+
+        //then
+        wait(for: [expectation], timeout: 5)
+    }
+
+    func setupTestSessionAndProtocolMock(testData: Data, urlString: String, statusCode: Int) -> URLSession {
         URLProtocolMock.testData = testData
         URLProtocolMock.response = HTTPURLResponse(url: URL(string: urlString)!, statusCode: statusCode, httpVersion: nil, headerFields: nil)
         let config = URLSessionConfiguration.ephemeral
@@ -89,4 +127,3 @@ class URLProtocolMock: URLProtocol {
 
     override func stopLoading() { }
 }
-

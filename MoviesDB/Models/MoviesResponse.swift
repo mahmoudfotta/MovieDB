@@ -39,7 +39,7 @@ struct MoviesResponse: Decodable {
     }
     
     func fetch(using session: URLSession = .shared, page: Int, onSuccess: @escaping (MoviesResponse) -> Void, onError: ((RequestError) -> Void)? = nil) {
-        let apiManager = ApiManager(session: session, urlString: "https://api.themoviedb.org/3/discover/movie")
+        let apiManager = ApiManager(session: session, endpoint: .movies)
         apiManager.getRequest(page: page, onSuccess: { (data) in
             let decodedData = self.decodeResponse(from: data)
             onSuccess(decodedData)

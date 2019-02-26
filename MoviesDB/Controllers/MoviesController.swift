@@ -10,6 +10,7 @@ import UIKit
 
 class MoviesController: UITableViewController {
     var dataSource = MoviesTableViewDataSource()
+    var addMovieDelegate = AddMovieControllerDelegateHandler()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +23,7 @@ class MoviesController: UITableViewController {
     }
 
     func setupTableView() {
-        tableView.register(MovieTableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(MovieTableViewCell.self, forCellReuseIdentifier: movieCellId)
         tableView.dataSource = dataSource
     }
 
@@ -42,7 +43,12 @@ class MoviesController: UITableViewController {
 
     @objc func addTapped() {
         let addController = AddMovieController()
-        addController.delegate = self
+        addController.delegate = addMovieDelegate
+        addMovieDelegate.addMovieAction = {[weak self] movie in
+            guard let self = self else { return }
+            self.dataSource.myMovies.append(movie)
+            self.tableView.reloadData()
+        }
         navigationController?.pushViewController(addController, animated: true)
     }
 }
@@ -50,12 +56,5 @@ class MoviesController: UITableViewController {
 extension MoviesController {
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         tableView.addLoadingIndicator(at: indexPath)
-    }
-}
-
-extension MoviesController: AddMovieDelegate {
-    func add(_ movie: Movie) {
-        dataSource.myMovies.append(movie)
-        tableView.reloadData()
     }
 }

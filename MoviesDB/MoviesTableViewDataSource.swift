@@ -8,12 +8,17 @@
 
 import UIKit
 
+let movieCellId = "Cell"
+enum MovieTableSectionsTitles: String {
+    case allMovies = "All Movies"
+    case myMovies = "My Movies"
+}
+
 class MoviesTableViewDataSource: NSObject, UITableViewDataSource {
     var page = 1
     var totalPages = 0
     var movies = [Movie]()
     var dataChanged: ((_ isSuccess: Bool) -> Void)?
-    let cellId = "Cell"
     var myMovies = [Movie]()
     let moviesResponse = MoviesResponse()
     
@@ -65,7 +70,7 @@ class MoviesTableViewDataSource: NSObject, UITableViewDataSource {
     }
     
     func cellForRow(_ tableView: UITableView, at indexPath: IndexPath) -> MovieTableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? MovieTableViewCell else{
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: movieCellId, for: indexPath) as? MovieTableViewCell else{
             fatalError("Couldn't deque cell.")
         }
         if !myMovies.isEmpty && indexPath.section == 0 {
@@ -81,8 +86,8 @@ class MoviesTableViewDataSource: NSObject, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if !myMovies.isEmpty && section == 0 {
-            return "My Movies"
+            return MovieTableSectionsTitles.myMovies.rawValue
         }
-        return "All Movies"
+        return MovieTableSectionsTitles.allMovies.rawValue
     }
 }

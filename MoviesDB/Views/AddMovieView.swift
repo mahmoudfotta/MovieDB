@@ -9,6 +9,8 @@
 import UIKit
 
 class AddMovieView: UIView {
+    var selectImageAction: (() -> Void)?
+
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -31,7 +33,16 @@ class AddMovieView: UIView {
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
-    
+
+    let selectedImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.backgroundColor = .black
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        return imageView
+    }()
+
     let titleStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -122,6 +133,7 @@ class AddMovieView: UIView {
     
     func setupViews() {
         addScrollView()
+        addSelectedImageView()
         addSelectImageView()
         addTitleStackView()
         addDateStackView()
@@ -130,7 +142,7 @@ class AddMovieView: UIView {
         addDatePicker(to: dateTextField)
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        topView.addGestureRecognizer(tapGesture)
+        addGestureRecognizer(tapGesture)
     }
     
     func addScrollView() {
@@ -148,23 +160,38 @@ class AddMovieView: UIView {
         topView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
         topView.heightAnchor.constraint(equalToConstant: 400).isActive = true
     }
-    
+
+    func addSelectedImageView() {
+        addSubview(selectedImageView)
+        selectedImageView.centerXAnchor.constraint(equalTo: topView.safeAreaLayoutGuide.centerXAnchor, constant: -30).isActive = true
+        selectedImageView.topAnchor.constraint(equalTo: topView.safeAreaLayoutGuide.topAnchor, constant: 15).isActive = true
+        selectedImageView.heightAnchor.constraint(equalToConstant: 120).isActive = true
+        selectedImageView.widthAnchor.constraint(equalToConstant: 80).isActive = true
+    }
+
     func addSelectImageView() {
         topView.addSubview(selectImageView)
-        selectImageView.topAnchor.constraint(equalTo: topView.topAnchor).isActive = true
-        selectImageView.centerXAnchor.constraint(equalTo: topView.centerXAnchor).isActive = true
-        selectImageView.heightAnchor.constraint(equalToConstant: 70).isActive = true
+        selectImageView.centerYAnchor.constraint(equalTo: selectedImageView.centerYAnchor).isActive = true
+        selectImageView.leadingAnchor.constraint(equalTo: selectedImageView.trailingAnchor, constant: 10).isActive = true
+        selectImageView.heightAnchor.constraint(equalToConstant: 30).isActive = true
+
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(selectImageTapped))
+        selectImageView.addGestureRecognizer(tapGesture)
     }
-    
+
+    @objc func selectImageTapped() {
+        selectImageAction?()
+    }
+
     func addTitleStackView() {
         topView.addSubview(titleStackView)
         titleStackView.leadingAnchor.constraint(equalTo: topView.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
         titleStackView.trailingAnchor.constraint(equalTo: topView.safeAreaLayoutGuide.trailingAnchor, constant: -15).isActive = true
-        titleStackView.topAnchor.constraint(equalTo: selectImageView.bottomAnchor, constant: 15).isActive = true
+        titleStackView.topAnchor.constraint(equalTo: selectedImageView.bottomAnchor, constant: 15).isActive = true
         titleStackView.addArrangedSubview(titleLabel)
         titleStackView.addArrangedSubview(titleTextField)
     }
-    
+
     func addDateStackView() {
         topView.addSubview(dateStackView)
         dateStackView.leadingAnchor.constraint(equalTo: topView.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
@@ -173,7 +200,7 @@ class AddMovieView: UIView {
         dateStackView.addArrangedSubview(dateLabel)
         dateStackView.addArrangedSubview(dateTextField)
     }
-    
+
     func addOverviewStackView() {
         topView.addSubview(overviewStackView)
         overviewStackView.leadingAnchor.constraint(equalTo: topView.safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
@@ -186,21 +213,21 @@ class AddMovieView: UIView {
         overviewTextView.layer.borderColor = UIColor(white: 0.9, alpha: 1).cgColor
         overviewTextView.layer.cornerRadius = 4
     }
-    
+
     func addDatePicker(to textField: UITextField) {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
         datePicker.addTarget(self, action: #selector(handleDateChanged), for: .valueChanged)
         textField.inputView = datePicker
     }
-    
+
     @objc func handleDateChanged(datePicker: UIDatePicker) {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/yyyy"
         dateTextField.text = formatter.string(from: datePicker.date)
     }
-    
+
     @objc func dismissKeyboard() {
-        topView.endEditing(true)
+        endEditing(true)
     }
 }

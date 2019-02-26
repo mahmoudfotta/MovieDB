@@ -27,6 +27,7 @@
 		0DA2DF12222550F500F743E5 /* UIImageView+ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA2DF11222550F500F743E5 /* UIImageView+ImageCache.swift */; };
 		0DA2DF14222571B400F743E5 /* AddMovieControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA2DF13222571B400F743E5 /* AddMovieControllerTests.swift */; };
 		0DA2DF16222580C300F743E5 /* AddMovieControllerDelegateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA2DF15222580C300F743E5 /* AddMovieControllerDelegateHandler.swift */; };
+		0DA2DF192225AB1D00F743E5 /* ImagePickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA2DF182225AB1D00F743E5 /* ImagePickerDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,7 @@
 		0DA2DF11222550F500F743E5 /* UIImageView+ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+ImageCache.swift"; sourceTree = "<group>"; };
 		0DA2DF13222571B400F743E5 /* AddMovieControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMovieControllerTests.swift; sourceTree = "<group>"; };
 		0DA2DF15222580C300F743E5 /* AddMovieControllerDelegateHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMovieControllerDelegateHandler.swift; sourceTree = "<group>"; };
+		0DA2DF182225AB1D00F743E5 /* ImagePickerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,18 +134,15 @@
 		0D79974222204AB200969D17 /* MoviesDB */ = {
 			isa = PBXGroup;
 			children = (
-				0D79977622208BF700969D17 /* ApiManager.swift */,
-				0D79974322204AB200969D17 /* AppDelegate.swift */,
+				0DA2DF1C2225B56E00F743E5 /* Network */,
 				0D79977122204CF200969D17 /* Models */,
 				0D79977E2221DADB00969D17 /* Views */,
 				0DA2DF102225369100F743E5 /* Controllers */,
 				0D6186852222FF7100FF954A /* Extensions */,
-				0D61868622233D5800FF954A /* AddMovieDelegate.swift */,
-				0D79974A22204AB200969D17 /* Assets.xcassets */,
-				0D79974C22204AB200969D17 /* LaunchScreen.storyboard */,
+				0DA2DF172225AAEE00F743E5 /* Delegates */,
+				0DA2DF1A2225AB4600F743E5 /* DataSources */,
+				0DA2DF1B2225B55000F743E5 /* Resources */,
 				0D79974F22204AB200969D17 /* Info.plist */,
-				0D7997782220A76F00969D17 /* MoviesTableViewDataSource.swift */,
-				0DA2DF15222580C300F743E5 /* AddMovieControllerDelegateHandler.swift */,
 			);
 			path = MoviesDB;
 			sourceTree = "<group>";
@@ -194,6 +193,42 @@
 				0D61867F22227DEB00FF954A /* AddMovieController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		0DA2DF172225AAEE00F743E5 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				0D79974322204AB200969D17 /* AppDelegate.swift */,
+				0D61868622233D5800FF954A /* AddMovieDelegate.swift */,
+				0DA2DF15222580C300F743E5 /* AddMovieControllerDelegateHandler.swift */,
+				0DA2DF182225AB1D00F743E5 /* ImagePickerDelegate.swift */,
+			);
+			path = Delegates;
+			sourceTree = "<group>";
+		};
+		0DA2DF1A2225AB4600F743E5 /* DataSources */ = {
+			isa = PBXGroup;
+			children = (
+				0D7997782220A76F00969D17 /* MoviesTableViewDataSource.swift */,
+			);
+			path = DataSources;
+			sourceTree = "<group>";
+		};
+		0DA2DF1B2225B55000F743E5 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0D79974C22204AB200969D17 /* LaunchScreen.storyboard */,
+				0D79974A22204AB200969D17 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		0DA2DF1C2225B56E00F743E5 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				0D79977622208BF700969D17 /* ApiManager.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -335,6 +370,7 @@
 				0D7997802221DB0C00969D17 /* IndicatorView.swift in Sources */,
 				0D79974422204AB200969D17 /* AppDelegate.swift in Sources */,
 				0DA2DF12222550F500F743E5 /* UIImageView+ImageCache.swift in Sources */,
+				0DA2DF192225AB1D00F743E5 /* ImagePickerDelegate.swift in Sources */,
 				0D61868722233D5800FF954A /* AddMovieDelegate.swift in Sources */,
 				0D6186842222FBDD00FF954A /* TableView.swift in Sources */,
 				0D79977322204D1400969D17 /* Movie.swift in Sources */,

@@ -35,7 +35,7 @@ class AddMovieControllerTests: XCTestCase {
             XCTAssertEqual(movie.title, title)
             expectation.fulfill()
         }
-        addMovieController.addMovie(with: title, date: date, overview: overview)
+        addMovieController.addMovie(with: title, date: date, overview: overview, selectedImage: nil)
 
         //then
         wait(for: [expectation], timeout: 5)

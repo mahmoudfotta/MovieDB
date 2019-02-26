@@ -15,7 +15,8 @@ class MoviesTableViewDataSource: NSObject, UITableViewDataSource {
     var dataChanged: ((_ isSuccess: Bool) -> Void)?
     let cellId = "Cell"
     var myMovies = [Movie]()
-
+    let moviesResponse = MoviesResponse()
+    
     init(isTesting: Bool = false) {
         super.init()
         if !isTesting {
@@ -24,7 +25,6 @@ class MoviesTableViewDataSource: NSObject, UITableViewDataSource {
     }
 
     func requestMovies(at page: Int) {
-        let moviesResponse = MoviesResponse()
         moviesResponse.fetch(page: page, onSuccess: { (response) in
             self.handleResponse(response: response)
         }) { (error) in
@@ -39,15 +39,8 @@ class MoviesTableViewDataSource: NSObject, UITableViewDataSource {
         dataChanged?(true)
     }
 
-    func shouldRequestMoreMovies(at page: Int, totalPages: Int) -> Bool {
-        if page < totalPages {
-            return true
-        }
-        return false
-    }
-
     func requestMoreMovies(at page: Int, totalPages: Int, tableView: UITableView, indexPath: IndexPath) {
-        if shouldRequestMoreMovies(at: page, totalPages: totalPages) && tableView.isLast(indexPath) {
+        if moviesResponse.shouldRequestMoreMovies(at: page, totalPages: totalPages) && tableView.isLast(indexPath) {
             requestMovies(at: page)
         }
     }

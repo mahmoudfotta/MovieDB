@@ -106,12 +106,11 @@ class MoviesControllerTests: XCTestCase {
 
     func testShouldRequestMoreMoviesWhenPageGreaterThanOrEqualTotalPagesReturnsFalse() {
         //given
-        let datasource = MoviesTableViewDataSource(isTesting: true)
         let page = 100
         let totalPages = 100
 
         //when
-        let result = datasource.shouldRequestMoreMovies(at: page, totalPages: totalPages)
+        guard let result = moviesResponse?.shouldRequestMoreMovies(at: page, totalPages: totalPages) else { return }
 
         //then
         XCTAssertFalse(result)
@@ -119,12 +118,11 @@ class MoviesControllerTests: XCTestCase {
 
     func testShouldRequestMoreMoviesWhenPageLessThanTotalPagesReturnsTrue() {
         //given
-        let datasource = MoviesTableViewDataSource(isTesting: true)
         let page = 99
         let totalPages = 100
 
         //when
-        let result = datasource.shouldRequestMoreMovies(at: page, totalPages: totalPages)
+        guard let result = moviesResponse?.shouldRequestMoreMovies(at: page, totalPages: totalPages) else { return }
 
         //then
         XCTAssertTrue(result)

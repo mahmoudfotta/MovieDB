@@ -47,7 +47,14 @@ struct MoviesResponse: Decodable {
             onError?(error)
         }
     }
-    
+
+    func shouldRequestMoreMovies(at page: Int, totalPages: Int) -> Bool {
+        if page < totalPages {
+            return true
+        }
+        return false
+    }
+
     private func decodeResponse(from data: Data) -> MoviesResponse {
         do {
             let decoder = JSONDecoder()

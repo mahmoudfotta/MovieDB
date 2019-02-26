@@ -129,9 +129,8 @@
 				0D79974322204AB200969D17 /* AppDelegate.swift */,
 				0D79977122204CF200969D17 /* Models */,
 				0D79977E2221DADB00969D17 /* Views */,
+				0DA2DF102225369100F743E5 /* Controllers */,
 				0D6186852222FF7100FF954A /* Extensions */,
-				0D79974522204AB200969D17 /* MoviesController.swift */,
-				0D61867F22227DEB00FF954A /* AddMovieController.swift */,
 				0D61868622233D5800FF954A /* AddMovieDelegate.swift */,
 				0D79974A22204AB200969D17 /* Assets.xcassets */,
 				0D79974C22204AB200969D17 /* LaunchScreen.storyboard */,
@@ -177,6 +176,15 @@
 				0D61868A222491B300FF954A /* MovieTableViewCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		0DA2DF102225369100F743E5 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				0D79974522204AB200969D17 /* MoviesController.swift */,
+				0D61867F22227DEB00FF954A /* AddMovieController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

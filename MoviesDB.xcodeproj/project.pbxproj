@@ -28,6 +28,7 @@
 		0DA2DF14222571B400F743E5 /* AddMovieControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA2DF13222571B400F743E5 /* AddMovieControllerTests.swift */; };
 		0DA2DF16222580C300F743E5 /* AddMovieControllerDelegateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA2DF15222580C300F743E5 /* AddMovieControllerDelegateHandler.swift */; };
 		0DA2DF192225AB1D00F743E5 /* ImagePickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA2DF182225AB1D00F743E5 /* ImagePickerDelegate.swift */; };
+		0DA2DF1E2225C9DF00F743E5 /* ScrollView+Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA2DF1D2225C9DF00F743E5 /* ScrollView+Keyboard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +76,7 @@
 		0DA2DF13222571B400F743E5 /* AddMovieControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMovieControllerTests.swift; sourceTree = "<group>"; };
 		0DA2DF15222580C300F743E5 /* AddMovieControllerDelegateHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMovieControllerDelegateHandler.swift; sourceTree = "<group>"; };
 		0DA2DF182225AB1D00F743E5 /* ImagePickerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerDelegate.swift; sourceTree = "<group>"; };
+		0DA2DF1D2225C9DF00F743E5 /* ScrollView+Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScrollView+Keyboard.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 			children = (
 				0D6186832222FBDD00FF954A /* TableView.swift */,
 				0DA2DF11222550F500F743E5 /* UIImageView+ImageCache.swift */,
+				0DA2DF1D2225C9DF00F743E5 /* ScrollView+Keyboard.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -371,6 +374,7 @@
 				0D79974422204AB200969D17 /* AppDelegate.swift in Sources */,
 				0DA2DF12222550F500F743E5 /* UIImageView+ImageCache.swift in Sources */,
 				0DA2DF192225AB1D00F743E5 /* ImagePickerDelegate.swift in Sources */,
+				0DA2DF1E2225C9DF00F743E5 /* ScrollView+Keyboard.swift in Sources */,
 				0D61868722233D5800FF954A /* AddMovieDelegate.swift in Sources */,
 				0D6186842222FBDD00FF954A /* TableView.swift in Sources */,
 				0D79977322204D1400969D17 /* Movie.swift in Sources */,

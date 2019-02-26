@@ -159,6 +159,8 @@ class AddMovieView: UIView {
         topView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
         topView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
         topView.heightAnchor.constraint(equalToConstant: 400).isActive = true
+        
+        scrollView.handleKeyboard()
     }
 
     func addSelectedImageView() {

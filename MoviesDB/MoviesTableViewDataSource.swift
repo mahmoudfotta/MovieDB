@@ -70,11 +70,11 @@ class MoviesTableViewDataSource: NSObject, UITableViewDataSource {
         }
         if !myMovies.isEmpty && indexPath.section == 0 {
             let movie = myMovies[indexPath.row]
-            cell.updateCell(with: movie)
+            cell.updateMyMovieCell(with: movie)
             return cell
         }
         let movie = movies[indexPath.row]
-        cell.updateCell(with: movie)
+        cell.updateMovieCell(with: movie)
         requestMoreMovies(at: page, totalPages: totalPages, tableView: tableView, indexPath: indexPath)
         return cell
     }

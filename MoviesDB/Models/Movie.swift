@@ -6,7 +6,7 @@
 //  Copyright © 2019 Mahmoud Abolfotoh. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct Movie: Decodable {
     enum CodingKeys: String, CodingKey {
@@ -20,12 +20,14 @@ struct Movie: Decodable {
     var overview: String
     var date: String
     var posterURL: String?
-
-    init(title: String, overview: String, date: String, posterURL: String?) {
+    var selectedImage: UIImage?
+    
+    init(title: String, overview: String, date: String, posterURL: String? = nil, selectedImage: UIImage? = nil) {
         self.title = title
         self.overview = overview
         self.date = date
         self.posterURL = posterURL
+        self.selectedImage = selectedImage
     }
     
     init(from decoder: Decoder) throws {

@@ -24,6 +24,7 @@
 		0D7997792220A76F00969D17 /* MoviesTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7997782220A76F00969D17 /* MoviesTableViewDataSource.swift */; };
 		0D79977D2220B65F00969D17 /* MoviesControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D79977C2220B65F00969D17 /* MoviesControllerTests.swift */; };
 		0D7997802221DB0C00969D17 /* IndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D79977F2221DB0C00969D17 /* IndicatorView.swift */; };
+		0DA2DF12222550F500F743E5 /* UIImageView+ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA2DF11222550F500F743E5 /* UIImageView+ImageCache.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		0D7997782220A76F00969D17 /* MoviesTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesTableViewDataSource.swift; sourceTree = "<group>"; };
 		0D79977C2220B65F00969D17 /* MoviesControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesControllerTests.swift; sourceTree = "<group>"; };
 		0D79977F2221DB0C00969D17 /* IndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorView.swift; sourceTree = "<group>"; };
+		0DA2DF11222550F500F743E5 /* UIImageView+ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+ImageCache.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				0D6186832222FBDD00FF954A /* TableView.swift */,
+				0DA2DF11222550F500F743E5 /* UIImageView+ImageCache.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -325,6 +328,7 @@
 				0D79977722208BF700969D17 /* ApiManager.swift in Sources */,
 				0D7997802221DB0C00969D17 /* IndicatorView.swift in Sources */,
 				0D79974422204AB200969D17 /* AppDelegate.swift in Sources */,
+				0DA2DF12222550F500F743E5 /* UIImageView+ImageCache.swift in Sources */,
 				0D61868722233D5800FF954A /* AddMovieDelegate.swift in Sources */,
 				0D6186842222FBDD00FF954A /* TableView.swift in Sources */,
 				0D79977322204D1400969D17 /* Movie.swift in Sources */,

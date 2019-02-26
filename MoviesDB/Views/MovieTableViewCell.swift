@@ -51,6 +51,11 @@ class MovieTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        posterImageView.image = nil
+    }
+    
     private func setupViews() {
         addPosterImageView()
         addTitleLabel()
@@ -61,7 +66,7 @@ class MovieTableViewCell: UITableViewCell {
     func addPosterImageView() {
         addSubview(posterImageView)
         posterImageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 15).isActive = true
-        posterImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
+        posterImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 15).isActive = true
         posterImageView.heightAnchor.constraint(equalToConstant: 120).isActive = true
         posterImageView.widthAnchor.constraint(equalToConstant: 80).isActive = true
     }
@@ -84,14 +89,31 @@ class MovieTableViewCell: UITableViewCell {
     
     func addDateLabel() {
         addSubview(dateLabel)
-//        dateLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
         dateLabel.centerXAnchor.constraint(equalTo: posterImageView.centerXAnchor).isActive = true
         dateLabel.topAnchor.constraint(equalTo: posterImageView.bottomAnchor, constant: 5).isActive = true
         dateLabel.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -10).isActive = true
         dateLabel.setContentHuggingPriority(UILayoutPriority(749), for: .vertical)
     }
     
-    func updateCell(with movie: Movie) {
+    func updateMovieCell(with movie: Movie) {
+        setLabels(with: movie)
+        if let urlString = movie.posterURL {
+            posterImageView.cacheImage(with: urlString)
+        } else {
+            posterImageView.image = #imageLiteral(resourceName: "Poster_not_available")
+        }
+    }
+    
+    func updateMyMovieCell(with movie: Movie) {
+        setLabels(with: movie)
+        if let image = movie.selectedImage {
+            posterImageView.image = image
+        } else {
+            posterImageView.image = #imageLiteral(resourceName: "Poster_not_available")
+        }
+    }
+    
+    private func setLabels(with movie: Movie) {
         titleLabel.text = movie.title
         overviewLabel.text = movie.overview
         dateLabel.text = movie.date

@@ -12,22 +12,26 @@ struct MoviesResponse: Decodable {
     enum CodingKeys: String, CodingKey {
         case page
         case totalPages = "total_pages"
+        case totalResults = "total_results"
         case movies = "results"
     }
 
     var page: Int
     var totalPages: Int
+    var totalResults: Int
     var movies: [Movie]
 
     init() {
         page = 0
         totalPages = 0
+        totalResults = 0
         movies = [Movie]()
     }
     
-    init(page: Int, totalPages: Int, movies: [Movie]) {
+    init(page: Int, totalPages: Int, totalResults: Int, movies: [Movie]) {
         self.page = page
         self.totalPages = totalPages
+        self.totalResults = totalResults
         self.movies = movies
     }
 
@@ -35,6 +39,7 @@ struct MoviesResponse: Decodable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         page = try container.decode(Int.self, forKey: .page)
         totalPages = try container.decode(Int.self, forKey: .totalPages)
+        totalResults = try container.decode(Int.self, forKey: .totalResults)
         movies = try container.decode([Movie].self, forKey: .movies)
     }
     
@@ -48,8 +53,8 @@ struct MoviesResponse: Decodable {
         }
     }
 
-    func shouldRequestMoreMovies(at page: Int, totalPages: Int) -> Bool {
-        if page < totalPages {
+    func shouldRequestMoreMovies(at page: Int, totalPages: Int, moviesCount: Int, totalResult: Int) -> Bool {
+        if page < totalPages && moviesCount < totalResult {
             return true
         }
         return false

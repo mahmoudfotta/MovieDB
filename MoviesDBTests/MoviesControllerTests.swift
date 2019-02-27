@@ -18,7 +18,7 @@ class MoviesControllerTests: XCTestCase {
             movies.append(Movie(title: "title\(i)", overview: "overview\(i)", date: "10-\(i)-2019", posterURL: "poster url \(i)"))
         }
 
-        moviesResponse = MoviesResponse(page: 1, totalPages: 100, movies: movies)
+        moviesResponse = MoviesResponse(page: 1, totalPages: 2, totalResults: 40,  movies: movies)
     }
 
     override func tearDown() {
@@ -79,10 +79,10 @@ class MoviesControllerTests: XCTestCase {
         let expectation = XCTestExpectation(description: "Data changed gets called.")
 
         //when
-        dataSource.handleResponse(response: moviesResponse!)
         dataSource.dataChanged = { (success) in
             expectation.fulfill()
         }
+        dataSource.handleResponse(response: moviesResponse!)
 
         //then
         wait(for: [expectation], timeout: 2)
@@ -104,25 +104,29 @@ class MoviesControllerTests: XCTestCase {
         XCTAssertTrue(result)
     }
 
-    func testShouldRequestMoreMoviesWhenPageGreaterThanOrEqualTotalPagesReturnsFalse() {
+    func testShouldRequestMoreMoviesWhenPageEqualTotalPagesAndCurrentMoviesCountEqualTotalMoviesCountReturnsFalse() {
         //given
-        let page = 100
-        let totalPages = 100
+        let page = 1
+        let totalPages = 1
+        let moviesCount = 20
+        let totalResult = 20
 
         //when
-        guard let result = moviesResponse?.shouldRequestMoreMovies(at: page, totalPages: totalPages) else { return }
+        guard let result = moviesResponse?.shouldRequestMoreMovies(at: page, totalPages: totalPages, moviesCount: moviesCount, totalResult: totalResult) else { return }
 
         //then
         XCTAssertFalse(result)
     }
 
-    func testShouldRequestMoreMoviesWhenPageLessThanTotalPagesReturnsTrue() {
+    func testShouldRequestMoreMoviesWhenPageLessThanTotalPagesAndCurrentMoviesCountLessThanTotalMoviesCountReturnsTrue() {
         //given
-        let page = 99
-        let totalPages = 100
+        let page = 1
+        let totalPages = 2
+        let moviesCount = 20
+        let totalResult = 40
 
         //when
-        guard let result = moviesResponse?.shouldRequestMoreMovies(at: page, totalPages: totalPages) else { return }
+        guard let result = moviesResponse?.shouldRequestMoreMovies(at: page, totalPages: totalPages, moviesCount: moviesCount, totalResult: totalResult) else { return }
 
         //then
         XCTAssertTrue(result)

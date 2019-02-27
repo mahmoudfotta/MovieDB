@@ -17,6 +17,7 @@ enum MovieTableSectionsTitles: String {
 class MoviesTableViewDataSource: NSObject, UITableViewDataSource {
     var page = 1
     var totalPages = 0
+    var totalResults = 0
     var movies = [Movie]()
     var dataChanged: ((_ isSuccess: Bool) -> Void)?
     var myMovies = [Movie]()
@@ -40,12 +41,13 @@ class MoviesTableViewDataSource: NSObject, UITableViewDataSource {
     func handleResponse(response: MoviesResponse) {
         movies.append(contentsOf: response.movies)
         totalPages = response.totalPages
+        totalResults = response.totalResults
         page += 1
         dataChanged?(true)
     }
 
-    func requestMoreMovies(at page: Int, totalPages: Int, tableView: UITableView, indexPath: IndexPath) {
-        if moviesResponse.shouldRequestMoreMovies(at: page, totalPages: totalPages) && tableView.isLast(indexPath) {
+    func requestMoreMovies(at page: Int, totalPages: Int, moviesCount: Int, totalResults: Int, tableView: UITableView, indexPath: IndexPath) {
+        if moviesResponse.shouldRequestMoreMovies(at: page, totalPages: totalPages, moviesCount: moviesCount, totalResult: totalResults) && tableView.isLast(indexPath) {
             requestMovies(at: page)
         }
     }
@@ -80,7 +82,7 @@ class MoviesTableViewDataSource: NSObject, UITableViewDataSource {
         }
         let movie = movies[indexPath.row]
         cell.updateMovieCell(with: movie)
-        requestMoreMovies(at: page, totalPages: totalPages, tableView: tableView, indexPath: indexPath)
+        requestMoreMovies(at: page, totalPages: totalPages, moviesCount: movies.count, totalResults: totalResults, tableView: tableView, indexPath: indexPath)
         return cell
     }
 

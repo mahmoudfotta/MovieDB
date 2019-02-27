@@ -28,51 +28,6 @@ class MoviesDBUITests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
     
-    func testExample() {
-        
-        let app = XCUIApplication()
-        let moviesDbNavigationBar = app.navigationBars["Movies DB"]
-        moviesDbNavigationBar.buttons["Add"].tap()
-        
-        let addMovieNavigationBar = app.navigationBars["Add Movie"]
-        addMovieNavigationBar.otherElements["Add Movie"].tap()
-        addMovieNavigationBar.buttons["Movies DB"].tap()
-        moviesDbNavigationBar.otherElements["Movies DB"].tap()
-        
-//        let tablesQuery = app.tables.cells.allElemen
-//        tablesQuery/*@START_MENU_TOKEN@*/.staticTexts["Alita: Battle Angel"]/*[[".cells.staticTexts[\"Alita: Battle Angel\"]",".staticTexts[\"Alita: Battle Angel\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-//        tablesQuery/*@START_MENU_TOKEN@*/.staticTexts["2019-01-31"]/*[[".cells.staticTexts[\"2019-01-31\"]",".staticTexts[\"2019-01-31\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-        
-        
-        app.navigationBars["Movies DB"].buttons["Add"].tap()
-        app.scrollViews.otherElements/*@START_MENU_TOKEN@*/.textFields["dateTextField"]/*[[".textFields[\"5\/9\/1993\"]",".textFields[\"dateTextField\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-        app.datePickers.pickerWheels["27"].swipeUp()
-        
-        //XCUIApplication().tables.staticTexts["All Movies"].tap()
-        
-    }
-    
-    func testSaveButtonAddsMovieToTableviewFirstCell() {
-        let app = XCUIApplication()
-        app.buttons["Add"].tap()
-        let titleTextField = app.textFields["titleTextField"]
-        titleTextField.tap()
-        titleTextField.typeText("title test")
-        
-        let overviewTextView = app.textViews["overviewTextView"]
-        overviewTextView.tap()
-        app.keys["T"].tap()
-        app.keys["e"].tap()
-        app.keys["s"].tap()
-        app.keys["t"].tap()
-        app.keyboards.buttons["Return"].tap()
-    }
-    
-    func testTableViewExists() {
-        let app = XCUIApplication()
-        XCTAssertNotNil(app.tables.element)
-    }
-    
     func testTableViewCellsEqualOne() {
         let app = XCUIApplication()
         let table = app.tables.element
@@ -109,5 +64,39 @@ class MoviesDBUITests: XCTestCase {
         let app = XCUIApplication()
         app.buttons["Add"].tap()
         XCTAssert(app.navigationBars["Add Movie"].exists)
+    }
+    
+    func testAddMovieViewUIElementsExists() {
+        let app = XCUIApplication()
+        app.buttons["Add"].tap()
+        XCTAssert(app.staticTexts["titleLabel"].exists)
+        XCTAssert(app.textFields["titleTextField"].exists)
+        XCTAssert(app.staticTexts["overviewLabel"].exists)
+        XCTAssert(app.textViews["overviewTextView"].exists)
+        XCTAssert(app.staticTexts["dateLabel"].exists)
+        XCTAssert(app.textFields["dateTextField"].exists)
+    }
+    
+    func testSaveButtonAddsMovieToTableviewFirstCell() {
+        let app = XCUIApplication()
+        app.buttons["Add"].tap()
+        let titleTextField = app.textFields["titleTextField"]
+        titleTextField.tap()
+        titleTextField.typeText("title test")
+        
+        let overviewTextView = app.textViews["overviewTextView"]
+        overviewTextView.tap()
+        overviewTextView.typeText("test overview")
+        
+        let dateTextField = app.textFields["dateTextField"]
+        dateTextField.tap()
+        dateTextField.typeText("4/4/2020")
+    
+        app.buttons["Save"].tap()
+        
+        let table = app.tables.element
+        let cell = table.cells.element
+        
+        XCTAssert(cell.staticTexts["title test"].exists)
     }
 }

@@ -58,6 +58,7 @@ class AddMovieView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 20)
         label.text = "Title"
+        label.accessibilityIdentifier = "titleLabel"
         return label
     }()
     
@@ -85,6 +86,7 @@ class AddMovieView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 20)
         label.text = "Overview"
+        label.accessibilityIdentifier = "overviewLabel"
         return label
     }()
     
@@ -111,6 +113,7 @@ class AddMovieView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 20)
         label.text = "Choose data"
+        label.accessibilityIdentifier = "dateLabel"
         return label
     }()
     

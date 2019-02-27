@@ -52,9 +52,3 @@ class MoviesController: UITableViewController {
         navigationController?.pushViewController(addController, animated: true)
     }
 }
-
-extension MoviesController {
-    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        tableView.addLoadingIndicator(at: indexPath)
-    }
-}

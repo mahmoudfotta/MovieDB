@@ -16,7 +16,7 @@
 		0D79974622204AB200969D17 /* MoviesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D79974522204AB200969D17 /* MoviesController.swift */; };
 		0D79974B22204AB200969D17 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D79974A22204AB200969D17 /* Assets.xcassets */; };
 		0D79974E22204AB200969D17 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0D79974C22204AB200969D17 /* LaunchScreen.storyboard */; };
-		0D79975922204AB300969D17 /* MoviesDBTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D79975822204AB300969D17 /* MoviesDBTests.swift */; };
+		0D79975922204AB300969D17 /* MoviesNetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D79975822204AB300969D17 /* MoviesNetworkTests.swift */; };
 		0D79976422204AB300969D17 /* MoviesDBUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D79976322204AB300969D17 /* MoviesDBUITests.swift */; };
 		0D79977322204D1400969D17 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D79977222204D1400969D17 /* Movie.swift */; };
 		0D7997752220556500969D17 /* MoviesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7997742220556500969D17 /* MoviesResponse.swift */; };
@@ -61,7 +61,7 @@
 		0D79974D22204AB200969D17 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0D79974F22204AB200969D17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0D79975422204AB300969D17 /* MoviesDBTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoviesDBTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		0D79975822204AB300969D17 /* MoviesDBTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesDBTests.swift; sourceTree = "<group>"; };
+		0D79975822204AB300969D17 /* MoviesNetworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesNetworkTests.swift; sourceTree = "<group>"; };
 		0D79975A22204AB300969D17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0D79975F22204AB300969D17 /* MoviesDBUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoviesDBUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D79976322204AB300969D17 /* MoviesDBUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesDBUITests.swift; sourceTree = "<group>"; };
@@ -153,7 +153,7 @@
 		0D79975722204AB300969D17 /* MoviesDBTests */ = {
 			isa = PBXGroup;
 			children = (
-				0D79975822204AB300969D17 /* MoviesDBTests.swift */,
+				0D79975822204AB300969D17 /* MoviesNetworkTests.swift */,
 				0D79977C2220B65F00969D17 /* MoviesControllerTests.swift */,
 				0DA2DF13222571B400F743E5 /* AddMovieControllerTests.swift */,
 				0D79975A22204AB300969D17 /* Info.plist */,
@@ -388,7 +388,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0DA2DF14222571B400F743E5 /* AddMovieControllerTests.swift in Sources */,
-				0D79975922204AB300969D17 /* MoviesDBTests.swift in Sources */,
+				0D79975922204AB300969D17 /* MoviesNetworkTests.swift in Sources */,
 				0D79977D2220B65F00969D17 /* MoviesControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -549,7 +549,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = MoviesDB/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -566,7 +568,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = MoviesDB/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

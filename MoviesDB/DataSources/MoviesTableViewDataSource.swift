@@ -25,6 +25,10 @@ class MoviesTableViewDataSource: NSObject, UITableViewDataSource {
     
     init(isTesting: Bool = false) {
         super.init()
+        if CommandLine.arguments.contains("enable-testing") {
+            setupUITests()
+            return
+        }
         if !isTesting {
             requestMovies(at: page)
         }
@@ -48,6 +52,7 @@ class MoviesTableViewDataSource: NSObject, UITableViewDataSource {
 
     func requestMoreMovies(at page: Int, totalPages: Int, moviesCount: Int, totalResults: Int, tableView: UITableView, indexPath: IndexPath) {
         if moviesResponse.shouldRequestMoreMovies(at: page, totalPages: totalPages, moviesCount: moviesCount, totalResult: totalResults) && tableView.isLast(indexPath) {
+            tableView.addLoadingIndicator(at: indexPath)
             requestMovies(at: page)
         }
     }
@@ -91,5 +96,10 @@ class MoviesTableViewDataSource: NSObject, UITableViewDataSource {
             return MovieTableSectionsTitles.myMovies.rawValue
         }
         return MovieTableSectionsTitles.allMovies.rawValue
+    }
+    
+    func setupUITests() {
+        let moviesResponse = MoviesResponse(page: 1, totalPages: 1, totalResults: 40, movies: [Movie(title: "title test", overview: "overview test", date: "5-9-1993")])
+        handleResponse(response: moviesResponse)
     }
 }

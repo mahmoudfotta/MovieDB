@@ -66,6 +66,7 @@ class AddMovieView: UIView {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.borderStyle = .roundedRect
         textField.font = UIFont.systemFont(ofSize: 16)
+        textField.accessibilityIdentifier = "titleTextField"
         return textField
     }()
     
@@ -88,10 +89,11 @@ class AddMovieView: UIView {
     }()
     
     let overviewTextView: UITextView = {
-        let label = UITextView()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 16)
-        return label
+        let textView = UITextView()
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.font = UIFont.systemFont(ofSize: 16)
+        textView.accessibilityIdentifier = "overviewTextView"
+        return textView
     }()
     
     let dateStackView: UIStackView = {
@@ -118,6 +120,7 @@ class AddMovieView: UIView {
         textField.borderStyle = .roundedRect
         textField.font = UIFont.systemFont(ofSize: 16)
         textField.placeholder = "5/9/1993"
+        textField.accessibilityIdentifier = "dateTextField"
         return textField
     }()
     

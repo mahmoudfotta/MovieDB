@@ -11,6 +11,7 @@ import UIKit
 class MoviesController: UITableViewController {
     var dataSource = MoviesTableViewDataSource()
     var addMovieDelegate = AddMovieControllerDelegateHandler()
+    let loadingController = LoadingController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,13 +29,16 @@ class MoviesController: UITableViewController {
     }
 
     func handleDataDownloaded() {
+        add(loadingController, frame: view.frame)
         dataSource.dataChanged = { [weak self] success in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 if success {
+                    self.loadingController.remove()
                     self.tableView.tableFooterView = nil
                     self.tableView.reloadData()
                 } else {
+                    self.loadingController.remove()
                     self.tableView.tableFooterView = nil
                 }
             }

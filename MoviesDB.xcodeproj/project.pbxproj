@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D0D668D22271BB60068F500 /* UIViewController+ChildController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0D668C22271BB60068F500 /* UIViewController+ChildController.swift */; };
+		0D0D668F22271C710068F500 /* LoadingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0D668E22271C710068F500 /* LoadingController.swift */; };
 		0D61868022227DEB00FF954A /* AddMovieController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D61867F22227DEB00FF954A /* AddMovieController.swift */; };
 		0D61868222227F0B00FF954A /* AddMovieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D61868122227F0B00FF954A /* AddMovieView.swift */; };
 		0D6186842222FBDD00FF954A /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D6186832222FBDD00FF954A /* TableView.swift */; };
@@ -49,6 +51,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0D0D668C22271BB60068F500 /* UIViewController+ChildController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ChildController.swift"; sourceTree = "<group>"; };
+		0D0D668E22271C710068F500 /* LoadingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingController.swift; sourceTree = "<group>"; };
 		0D61867F22227DEB00FF954A /* AddMovieController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMovieController.swift; sourceTree = "<group>"; };
 		0D61868122227F0B00FF954A /* AddMovieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMovieView.swift; sourceTree = "<group>"; };
 		0D6186832222FBDD00FF954A /* TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableView.swift; sourceTree = "<group>"; };
@@ -110,6 +114,7 @@
 				0D6186832222FBDD00FF954A /* TableView.swift */,
 				0DA2DF11222550F500F743E5 /* UIImageView+ImageCache.swift */,
 				0DA2DF1D2225C9DF00F743E5 /* ScrollView+Keyboard.swift */,
+				0D0D668C22271BB60068F500 /* UIViewController+ChildController.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -194,6 +199,7 @@
 			children = (
 				0D79974522204AB200969D17 /* MoviesController.swift */,
 				0D61867F22227DEB00FF954A /* AddMovieController.swift */,
+				0D0D668E22271C710068F500 /* LoadingController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -370,11 +376,13 @@
 				0D61868222227F0B00FF954A /* AddMovieView.swift in Sources */,
 				0D7997752220556500969D17 /* MoviesResponse.swift in Sources */,
 				0D79977722208BF700969D17 /* ApiManager.swift in Sources */,
+				0D0D668D22271BB60068F500 /* UIViewController+ChildController.swift in Sources */,
 				0D7997802221DB0C00969D17 /* IndicatorView.swift in Sources */,
 				0D79974422204AB200969D17 /* AppDelegate.swift in Sources */,
 				0DA2DF12222550F500F743E5 /* UIImageView+ImageCache.swift in Sources */,
 				0DA2DF192225AB1D00F743E5 /* ImagePickerDelegate.swift in Sources */,
 				0DA2DF1E2225C9DF00F743E5 /* ScrollView+Keyboard.swift in Sources */,
+				0D0D668F22271C710068F500 /* LoadingController.swift in Sources */,
 				0D61868722233D5800FF954A /* AddMovieDelegate.swift in Sources */,
 				0D6186842222FBDD00FF954A /* TableView.swift in Sources */,
 				0D79977322204D1400969D17 /* Movie.swift in Sources */,
